@@ -9,6 +9,7 @@
   "author": "Aviv Beeri",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.14.1"
+    "express": "^4.14.1",
+    "prismic.io": "^3.3.1"
   }
 }
