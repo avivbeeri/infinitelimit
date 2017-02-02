@@ -44,8 +44,10 @@ app.get('/article/:uid', (req, res, next) => {
   .then((doc) => {
     const locals = {
       title: doc.getStructuredText('article.title').asText(),
-      image: doc.getImage('article.thumbnail').url
+      image: doc.getImage('article.thumbnail').url,
+      body: doc.getSliceZone('article.body').slices
     };
+    console.log(locals);
     res.render('article', locals);
     // res.send(locals);
   })

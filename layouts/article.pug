@@ -2,4 +2,8 @@ extends main.pug
 
 block content
   h1= title
-  img(src=image)
+  #img(src=image)
+  for slice in body
+    case slice.sliceType
+      when 'text'
+        section !{slice.value.asHtml()}

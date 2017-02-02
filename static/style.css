@@ -1,3 +1,46 @@
+@font-face {
+  font-family: Visitor;
+  src: url(/static/visitor1.ttf);
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+  background-color: black;
+  justify-content: center;
+  font-family: Visitor;
+}
+
 main {
-  
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  min-height: 100%;
+  width: 800px;
+  background-color: #5F574F; 
+  flex: 0 1 auto;
+}
+
+header, footer {
+  display: flex;
+  height: 2rem;
+  padding: 0.05rem 1.0rem;
+  background-color: #FF004D;
+}
+
+header nav {
+  display: inline-block;
+}
+
+header h1 {
+  display: inline-block;
+  margin-top: 0;
+  color: #1D2B53;
+  flex: 1 0 100%;
+  text-align: center;
+}
+
+article {
+  height: 100%;
+  padding: 0.5rem;
+  color: #C2C3C7;
 }

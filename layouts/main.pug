@@ -2,12 +2,14 @@ html
   head
     title Infinite Limit
     script(src='/static/index.js')
+    link(rel='stylesheet', href='/static/normalize.css')
     link(rel='stylesheet', href='/static/style.css')
   body
-    main(class='window')
+    main.window
       header
-        h1= title
-      nav
+        nav
+          // a(href='/') Home
+        h1 Infinite Limit
       article
         block content
       footer
