@@ -1,7 +1,10 @@
+const bodyParser = require('body-parser');
 const express = require('express');
 const Prismic = require('prismic.io');
 
 const app = express();
+
+app.use(bodyParser.json());
 
 function resolve(doc) {
   if (doc.type !== 'article') {
@@ -23,6 +26,12 @@ app.get('/', (req, res, next) => {
 
 app.get('/favicon.ico', (req, res) => {
   res.status(204).send();
+});
+
+
+app.post('/webhook', (req, res) => {
+  console.log(req.body);
+  res.status(200).send();
 });
 
 app.get('/article/:uid', (req, res, next) => {
