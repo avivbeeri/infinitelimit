@@ -4,7 +4,10 @@ const Prismic = require('prismic.io');
 
 const app = express();
 
+app.set('views', 'layouts');
+app.set('view engine', 'pug');
 app.use(bodyParser.json());
+app.use('/static', express.static('static'));
 
 function resolve(doc) {
   if (doc.type !== 'article') {
@@ -43,7 +46,8 @@ app.get('/article/:uid', (req, res, next) => {
       title: doc.getStructuredText('article.title').asText(),
       image: doc.getImage('article.thumbnail').url
     };
-    res.send(locals);
+    res.render('article', locals);
+    // res.send(locals);
   })
   .catch((reason) => {
     next(reason);
