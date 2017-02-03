@@ -44,3 +44,9 @@ article {
   padding: 0.5rem;
   color: #C2C3C7;
 }
+
+.icon {
+  margin-top: 0.25rem;
+  margin-left: 0;
+  width: 1.5rem;
+}
