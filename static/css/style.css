@@ -1,0 +1,69 @@
+@font-face {
+  font-family: Visitor;
+  src: url(/static/fonts/visitor1.ttf);
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+  background-color: black;
+  justify-content: center;
+  font-family: Visitor;
+}
+
+main {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  min-height: 100%;
+  width: 800px;
+  background-color: #5F574F; 
+  flex: 0 1 auto;
+}
+
+header, footer {
+  display: flex;
+  flex-direction: column;
+  height: 2rem;
+  padding: 0.05rem 0.5rem;
+  background-color: #FF004D;
+}
+
+header nav {
+  display: inherit;
+  
+  padding-top: 0.2rem;
+}
+
+header nav>a,
+header nav>a:active, 
+header nav>a:focus, 
+header nav>a:visited {
+  color: #1D2B53;
+}
+
+header nav>a:hover {
+  color: #FFCCAA;
+}
+
+header h1 {
+  display: inline-block;
+  margin-top: -0.25rem;
+  margin-bottom: 0;
+  color: #1D2B53;
+  flex: 1 0 100%;
+  text-align: center;
+}
+
+article {
+  height: 100%;
+  padding: 0.5rem;
+  color: #C2C3C7;
+}
+
+.icon {
+  display: inline-block;
+  font-size: 1.5rem;
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
