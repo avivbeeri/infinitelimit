@@ -126,8 +126,34 @@ a.homepage-article:hover h2 {
   main {
     width: 100%;
   }
+  
   .homepage-article {
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    vertical-align: top;
   }
 
+  .homepage-article img {
+    display: block;
+    width: 256px;
+  }
+  .homepage-article h2 {
+    width: auto;
+    text-overflow: ellipsis;
+  }
+
+  .homepage-article>.title-block {
+    height: 256px;
+    overflow: none;
+    flex: 0 1 80%;
+  }
+  .homepage-article>.title-image {
+    height: 265px;
+    flex: 1 0 256px;
+  }
+
+  .icon {
+    font-size: 3rem;  
+  } 
 }

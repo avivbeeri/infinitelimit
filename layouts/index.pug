@@ -4,5 +4,7 @@ block content
   div.homepage-article-container
     for article in docs.results 
       a.homepage-article(href!="/article/" + article.uid)
-        img(src=article.getImage('article.thumbnail').url)
-        h2= article.getStructuredText('article.title').asText()
+        div.title-image
+          img(src=article.getImage('article.thumbnail').url)
+        div.title-block
+          h2= article.getStructuredText('article.title').asText()
