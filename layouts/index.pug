@@ -3,6 +3,6 @@ extends main.pug
 block content
   div.homepage-article-container
     for article in docs.results 
-      div.homepage-article
+      a.homepage-article(href!="/article/" + article.uid)
         img(src=article.getImage('article.thumbnail').url)
         h2= article.getStructuredText('article.title').asText()
