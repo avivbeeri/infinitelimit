@@ -24,7 +24,21 @@ function api() {
 
 app.get('/', (req, res, next) => {
   // Retrieve the home page, render and serve
-  res.status(200).send('Welcome to infinitelimit.net');
+//  res.status(200).send('Welcome to infinitelimit.net');
+  api().then((api) => {
+    return api.query(
+      Prismic.Predicates.at('document.type', 'article'),
+      { orderings: '[my.article.date desc]' }
+    );
+  }).then((docs) => {
+    console.log(docs);
+    res.render('index', { 
+      docs: docs 
+    });
+  });
+
+
+
 });
 
 app.get('/favicon.ico', (req, res) => {
