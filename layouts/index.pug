@@ -1,6 +1,8 @@
 extends main.pug
 
 block content
-  for article in docs.results 
-    h1= article.getStructuredText('article.title').asText()
-    img(src=article.getImage('article.thumbnail').url)
+  div.homepage-article-container
+    for article in docs.results 
+      div.homepage-article
+        img(src=article.getImage('article.thumbnail').url)
+        h2= article.getStructuredText('article.title').asText()
