@@ -1,5 +1,13 @@
 extends main.pug
 
+block meta
+  title Infinite Limit
+  meta(name="twitter:card" content="summary")
+  meta(name="twitter:site" content="@infinitelimitzn")
+  meta(name="twitter:title" content="Infinite Limit")
+  meta(name="twitter:description" content="A community-driven e-zine with tutorials for fantasy virtual consoles")
+  meta(name="twitter:image" content="")
+
 block content
   for article in docs.results 
     .menuitem
