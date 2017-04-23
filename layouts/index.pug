@@ -10,5 +10,5 @@ block content
           h1= article.getStructuredText('article.title').asText()
         - var category = article.getLink('article.category');
         if category
-          h4= category.getText('category.title')
+          h4 Category / #{category.getText('category.title')}
         p= article.getStructuredText('article.description').asText()

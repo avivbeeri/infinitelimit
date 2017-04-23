@@ -1,5 +1,14 @@
 extends main.pug
 
+block meta
+  title Infinite Limit - #{title}
+  meta(name="description" content=description)
+  meta(name="twitter:card" content="summary")
+  meta(name="twitter:site" content="@infinitelimitzn")
+  meta(name="twitter:title" content=title)
+  meta(name="twitter:description" content=description)
+  meta(name="twitter:image" content=image)
+
 block content
   h1= title
   if category
