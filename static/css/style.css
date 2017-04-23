@@ -68,6 +68,20 @@ nav ul li {
   display: inline-block;
 }
 
+nav ul li a {
+  color: #1D2B53;
+  font-weight: bold;
+}
+
+nav ul li a:visited {
+  color: #1D2B53;
+}
+
+nav ul li a:hover {
+  color: #7E2553;
+  text-decoration: underline;
+}
+
 article {
   max-width: 620px;
   margin: 0 auto;
