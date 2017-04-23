@@ -11,8 +11,9 @@ block meta
 block content
   for article in docs.results 
     .menuitem
-      a(href!="/article/"+article.uid)
-        img.menu-thumbnail(src=article.getImage('article.thumbnail').url)
+      if article.getImage('article.thumbnail')
+        a(href!="/article/"+article.uid)
+          img.menu-thumbnail(src=article.getImage('article.thumbnail').url)
       div(style='menu-text')
         a(href!="/article/"+article.uid)
           h1= article.getStructuredText('article.title').asText()
