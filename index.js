@@ -112,7 +112,7 @@ app.get('/article/:uid', (req, res, next) => {
       category: category ? category.getText('category.title') : null,
       categorySlug: category ? category.uid : null,
       description: doc.getStructuredText('article.description').asText(),
-      image: doc.getImage('article.thumbnail').url,
+      image: doc.getImage('article.thumbnail') ? doc.getImage('article.thumbnail').url : null,
       body: doc.getSliceZone('article.body').slices,
       tags: doc.tags
     };
