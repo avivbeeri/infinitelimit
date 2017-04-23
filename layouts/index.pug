@@ -1,10 +1,14 @@
 extends main.pug
 
 block content
-  div.homepage-article-container
-    for article in docs.results 
-      a.homepage-article(href!="/article/" + article.uid)
-        div.title-image
-          img(src=article.getImage('article.thumbnail').url)
-        div.title-block
-          h2= article.getStructuredText('article.title').asText()
+  for article in docs.results 
+    .menuitem
+      a(href!="/article/"+article.uid)
+        img.menu-thumbnail(src=article.getImage('article.thumbnail').url)
+      div(style='menu-text')
+        a(href!="/article/"+article.uid)
+          h1= article.getStructuredText('article.title').asText()
+        - var category = article.getLink('article.category');
+        if category
+          h4= category.getText('category.title')
+        p= article.getStructuredText('article.description').asText()

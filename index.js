@@ -28,10 +28,10 @@ app.get('/', (req, res, next) => {
   api().then((api) => {
     return api.query(
       Prismic.Predicates.at('document.type', 'article'),
-      { orderings: '[my.article.date desc]' }
+      { fetchLinks: 'category.title', orderings: '[my.article.date desc]' }
     );
   }).then((docs) => {
-    console.log(docs);
+    //console.log(docs);
     res.render('index', { 
       docs: docs 
     });
@@ -53,17 +53,24 @@ app.post('/webhook', (req, res) => {
 
 app.get('/article/:uid', (req, res, next) => {
   api().then((api) => {
-    return api.getByUID('article', req.params.uid);
+    return api.getByUID('article', req.params.uid, { 
+      fetchLinks: 'category.title'
+    })
   })
   .then((doc) => {
+    console.log(doc);
+    const category = doc.getLink('article.category');
+    const author = doc.getLink('article.author');
     const locals = {
       title: doc.getStructuredText('article.title').asText(),
+      category: category ? category.getText('category.title') : null,
+      description: doc.getStructuredText('article.description').asText(),
       image: doc.getImage('article.thumbnail').url,
-      body: doc.getSliceZone('article.body').slices
+      body: doc.getSliceZone('article.body').slices,
+      tags: doc.tags
     };
     console.log(locals);
     res.render('article', locals);
-    // res.send(locals);
   })
   .catch((reason) => {
     next(reason);

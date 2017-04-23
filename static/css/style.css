@@ -1,159 +1,282 @@
-@font-face {
-  font-family: Visitor;
-  src: url(/static/fonts/visitor1.ttf);
+html { 
+  height: 100%; 
+}
+
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 body {
-  display: flex;
-  flex-direction: row;
-  background-color: black;
-  justify-content: center;
-  font-family: Visitor;
-}
-
-main {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  height: auto;
+  background-color: #fef8f5;
+  margin: 0;
+  font-size: 16px;
+  font-family: "Source Sans Pro", sans-serif;
   min-height: 100%;
-  background-color: #5F574F; 
-  flex: 0 1 auto;
-  
-  width: 900px;
+  position: relative;
+  padding-bottom: 70px;
 }
 
-
-header, footer {
-  display: flex;
-  flex-direction: column;
-  height: 2rem;
-  padding: 0.05rem 0.5rem;
-  background-color: #FF004D;
+a {
+  text-decoration: none;
+  color: #29ADFF;
 }
 
-header nav {
-  display: inherit;
-  
-  padding-top: 0.2rem;
+a:visited {
+  color: #29ADFF;
 }
 
-header nav>a,
-header nav>a:active, 
-header nav>a:focus, 
-header nav>a:visited {
+a:hover {
   color: #1D2B53;
 }
 
-header nav>a:hover {
-  color: #FFCCAA;
-}
-
-header h1 {
-  display: inline-block;
-  margin-top: -0.25rem;
-  margin-bottom: 0;
-  color: #1D2B53;
-  flex: 1 0 100%;
+header {
   text-align: center;
+  width: 100%;
+  background-color: #1D2B53;
+  color: #29ADFF;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+  font-size: 16px;
+}
+
+header h1, h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+nav {
+  text-align: center;
+  display: flex;
+  width: 100%;
+  background-color: #FF77A8;
+  justify-content: center;
+}
+
+nav ul {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  max-width: 620px;
+  padding-start: 0;
+  -webkit-padding-start: 0;
+}
+
+nav ul li {
+  display: inline-block;
 }
 
 article {
-  min-height: 100%;
-  padding: 0.5rem;
-  color: #C2C3C7;
+  max-width: 620px;
+  margin: 0 auto;
 }
 
-.icon {
-  display: inline-block;
-  font-size: 1.5rem;
-  margin-left: 0;
-  margin-right: 0.5rem;
+article h1 {
+  font-weight: 400;
+  font-size: 33px;
+  line-height: 120%;
+  margin-bottom: 10px;
+}
+
+article h2 {
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 120%;
+  margin-bottom: 10px;
+}
+
+article h4 {
+  margin-bottom: 10px;
+  margin-top: 0;
 }
 
 
-.homepage-article-container {
+article p {
+  color: #333333;
+  line-height: 170%;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+section h1 {
+  font-weight: 400;
+  font-size: 33px;
+  line-height: 120%;
+  margin-bottom: 10px;
+}
+
+section h2 {
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 120%;
+  margin-bottom: 10px;
+}
+
+section h4 {
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+
+section p {
+  color: #333333;
+  line-height: 170%;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+div.full {
+  margin-bottom: 10px;
+}
+
+div.full img {
+  height: auto;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+article p {
+  color: #333333;
+  line-height: 170%;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+
+
+img.align-left {
+  display: inline;
+  height: auto;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  max-width: 48%;
+  float: left;
+}
+
+img.align-right {
+  display: inline;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  height: auto;
+  max-width:48%;
+  float: right;
+}
+
+div.menuitem .menu-thumbnail {
+  width: 130px;
+  height: auto;
+  margin: 20px;
+  flex-shrink: 0;
+}
+
+div.menuitem .menu-text {
+  flex-grow: 1;
+}
+
+div.menuitem {
   display: flex;
-  flex-direction: row;
-  align-items: stretch; 
-  flex-wrap: wrap;
 }
 
-.homepage-article {
-  background-color: #7E2553;
-  width: 282px;
-  margin: 2px;
-  margin-bottom: 2rem;
-  //padding: 2px;
-  border: 4px solid #7E2553;
-  flex-direction: column;
-  justify-content: space-between;
-  text-decoration: none;
-  color: #C2C3C7;
+div.menuitem:not(:last-of-type) {
+  border-bottom-style: solid;
+  padding-bottom: 28px;
 }
 
-
-.homepage-article h2 {
-  margin-bottom: 0;
-  margin-top: 0.2rem;
-  padding: 4px;
+.tags-container {
+  margin-top: 10px;
+  border-top-style: solid;
 }
 
-a.homepage-article:hover h2 {
-  color: #C2C3C7;
+.tags-container ul {
+  display: inline-block;
+  padding-start: 0;
+  -webkit-padding-start: 0;
+}
+
+.tags-container ul li {
+  margin-left: 10px;
+  margin-right: 10px;
+  display: inline-block;
+
+}
+
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  display: flex;
+  width: 100%;
+  background-color: #1D2B53;
+  color: #29ADFF;
+  justify-content: center;
+}
+
+footer  p a {
+  color: #FF77A8;
+}
+
+footer p a:visited {
+  color: #FF77A8;
+}
+
+footer p a:hover {
+  color: #FF77A8;// #83769C;
   text-decoration: underline;
 }
 
-.homepage-article img {
-  width: 100%;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
+article pre {
+  background: #C2C3C7;
+  font-family: "Courier 10 Pitch", Courier, monospace;
+  padding: 10px;
+  overflow: auto;
+  white-space: pre-wrap;
 }
 
-
-@media only screen 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2) {
-
-  body {
-    font-size: 3rem;  
+@media screen and (max-width:600px) {  
+  article {
+    margin-left: 15px;
+    margin-right: 15px;
   }
 
-  header, footer {
-    height: 4rem;
-    font-size: 2rem;
+  footer p {
+    margin-left: 15px;
+    margin-right: 15px;
   }
 
-  main {
-    width: 100%;
-  }
-  
-  .homepage-article {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    vertical-align: top;
+  article h1 {
+    font-size: 26px;
   }
 
-  .homepage-article img {
-    display: block;
-    width: 256px;
-  }
-  .homepage-article h2 {
-    text-overflow: ellipsis;
+  img.align-left, img.align-right {
+    max-width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
   }
 
-  .homepage-article>.title-block {
-    height: 256px;
-    overflow: hidden;
-    flex: 0 1 80%;
+  div.menuitem {
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 
-  .homepage-article>.title-image {
-    height: 265px;
-    flex: 1 0 256px;
+  div.menuitem:not(:last-of-type) {
+    padding-bottom: 0;
   }
 
-  .icon {
-    font-size: 3rem;  
-  } 
+  div.menuitem h1 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 22px;
+  }
+
+  div.menuitem .menu-thumbnail {
+    width: 80px;
+    margin: 5px;
+    margin-right: 15px;
+  }
 }

@@ -2,8 +2,24 @@ extends main.pug
 
 block content
   h1= title
-  #img(src=image)
+  if category
+    h4
+      | Category / 
+      a(href!='/category/'+category) !{category}
+  .full
+    img(src=image)
   for slice in body
     case slice.sliceType
       when 'text'
         section !{slice.value.asHtml()}
+      when 'image-with-caption'
+        - var imageWithCaption = slice.value.toArray()[0]
+        div.full
+          img(src=imageWithCaption.getImage('illustration').url)
+        span !{imageWithCaption.get('caption').asText()}
+  .tags-container
+    | Tags:
+    ul
+      for tag in tags
+        li
+          a(href!='/tag/'+tag) !{tag}
