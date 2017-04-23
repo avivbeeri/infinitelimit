@@ -5,9 +5,10 @@ block content
   if category
     h4
       | Category / 
-      a(href!='/category/'+category) !{category}
-  .full
-    img(src=image)
+      a(href!='/categories/'+categorySlug) !{category}
+  if image
+    .full
+      img(src=image)
   for slice in body
     case slice.sliceType
       when 'text'
@@ -17,9 +18,10 @@ block content
         div.full
           img(src=imageWithCaption.getImage('illustration').url)
         span !{imageWithCaption.get('caption').asText()}
-  .tags-container
-    | Tags:
-    ul
-      for tag in tags
-        li
-          a(href!='/tag/'+tag) !{tag}
+  if tags && tags.length
+    .tags-container
+      | Tags:
+      ul
+        for tag in tags
+          li
+            a(href!='/tags/'+tag) !{tag}
