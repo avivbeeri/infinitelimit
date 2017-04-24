@@ -242,6 +242,7 @@ div.menuitem:not(:last-of-type) {
   background-color: #7E2553;
   color: #FFF1E8;
   padding: 10px;
+  border-radius: 10px;
 }
 
 .author-container p {
