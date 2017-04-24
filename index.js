@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const Prismic = require('prismic.io');
+const mcache = require('memory-cache');
 
 const app = express();
 
@@ -8,6 +9,8 @@ app.set('views', 'layouts');
 app.set('view engine', 'pug');
 app.use(bodyParser.json());
 app.use('/static', express.static('static'));
+
+const cTime = 60 * 60 * 24;
 
 function formatDate(date) {
   var monthNames = [
@@ -32,13 +35,31 @@ function resolve(doc) {
   return '/article/' + doc.uid;
 }
 
+var cache = (duration) => {
+  return (req, res, next) => {
+    let key = '__express__' + req.originalUrl || req.url
+    let cachedBody = mcache.get(key)
+    if (cachedBody) {
+      res.send(cachedBody)
+      return
+    } else {
+      res.sendResponse = res.send
+      res.send = (body) => {
+        mcache.put(key, body, duration * 1000);
+        res.sendResponse(body)
+      }
+      next()
+    }
+  }
+}
+
 function api() {
   return Prismic.api('https://infinitelimit.prismic.io/api', {
     apiDataTTL: 60
   });
 }
 
-app.get('/', (req, res, next) => {
+app.get('/', cache(cTime), (req, res, next) => {
   // Retrieve the home page, render and serve
 //  res.status(200).send('Welcome to infinitelimit.net');
   api().then((api) => {
@@ -47,14 +68,13 @@ app.get('/', (req, res, next) => {
       { fetchLinks: ['category.title', 'category.uid', 'author.name'], orderings: '[my.article.date desc]' }
     );
   }).then((docs) => {
-    //console.log(docs);
     res.render('index', { 
       docs: docs 
     });
   });
 });
 
-app.get('/tags/:tag', (req, res, next) => {
+app.get('/tags/:tag', cache(cTime), (req, res, next) => {
   // Retrieve the home page, render and serve
 //  res.status(200).send('Welcome to infinitelimit.net');
   api().then((api) => {
@@ -66,14 +86,13 @@ app.get('/tags/:tag', (req, res, next) => {
       orderings: '[my.article.date desc]' 
     });
   }).then((docs) => {
-    //console.log(docs);
     res.render('index', { 
       docs: docs 
     });
   });
 });
 
-app.get('/categories/:uid', (req, res, next) => {
+app.get('/categories/:uid', cache(cTime), (req, res, next) => {
   // Retrieve the home page, render and serve
 //  res.status(200).send('Welcome to infinitelimit.net');
   api().then((api) => {
@@ -98,7 +117,7 @@ app.get('/categories/:uid', (req, res, next) => {
     });
   });
 });
-app.get('/author/:uid', (req, res, next) => {
+app.get('/author/:uid', cache(cTime), (req, res, next) => {
   // Retrieve the home page, render and serve
 //  res.status(200).send('Welcome to infinitelimit.net');
   api().then((api) => {
@@ -123,24 +142,23 @@ app.get('/author/:uid', (req, res, next) => {
     });
   });
 });
+
 app.get('/favicon.ico', (req, res) => {
-  res.status(204).send();
+  res.sendFile('static/favicons/favicon.ico');
 });
 
 
 app.post('/webhook', (req, res) => {
-  console.log(req.body);
+  mcache.clear();
   res.status(200).send();
 });
 
-app.get('/article/:uid', (req, res, next) => {
+app.get('/article/:uid', cache(cTime), (req, res, next) => {
   api().then((api) => {
     return api.getByUID('article', req.params.uid, { 
       fetchLinks: ['category.title']
     })
     .then((doc) => {
-    //console.log(doc);
-      console.log(doc.getLink('article.author'))
       return api.getByID(doc.getLink('article.author').id).then((author) => {
         if (!doc) {
           res.status(404).send();
@@ -163,7 +181,6 @@ app.get('/article/:uid', (req, res, next) => {
           },
           tags: doc.tags
         };
-        //console.log(locals);
         res.render('article', locals);
 
       });
@@ -174,7 +191,7 @@ app.get('/article/:uid', (req, res, next) => {
   }); 
 });
 
-app.get('/:uid', (req, res, next) => {
+app.get('/:uid', cache(cTime), (req, res, next) => {
   api().then((api) => {
     return api.getByUID('page', req.params.uid)
   })
@@ -183,7 +200,6 @@ app.get('/:uid', (req, res, next) => {
       res.status(404).send();
       return;
     }
-    //console.log(doc);
     const locals = {
       title: doc.getStructuredText('page.title').asText(),
       description: null,
@@ -191,7 +207,6 @@ app.get('/:uid', (req, res, next) => {
       body: doc.getSliceZone('page.body').slices,
       tags: []
     };
-    //console.log(locals);
     res.render('article', locals);
   })
   .catch((reason) => {
