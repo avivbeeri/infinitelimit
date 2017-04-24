@@ -199,6 +199,9 @@ div.menuitem {
   display: flex;
 }
 
+div.menuitem:first-of-type {
+  padding-top: 10px;
+}
 div.menuitem:not(:last-of-type) {
   border-bottom-style: solid;
   padding-bottom: 28px;
