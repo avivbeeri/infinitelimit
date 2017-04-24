@@ -20,4 +20,8 @@ block content
         - var category = article.getLink('article.category');
         if category
           h4 Category / #{category.getText('category.title')}
+        - var author = article.getLink('article.author');
+        if author
+          a(href='/author/'+author.uid)
+            em.author #{author.getText('author.name')}
         p= article.getStructuredText('article.description').asText()

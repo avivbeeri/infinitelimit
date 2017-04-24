@@ -15,6 +15,9 @@ block content
     h4
       | Category / 
       a(href!='/categories/'+categorySlug) !{category}
+  div.published-date-label
+    em !{publishDate}
+
   if image
     .full
       img(src=image)
@@ -27,6 +30,11 @@ block content
         div.full
           img(src=imageWithCaption.getImage('illustration').url)
         span !{imageWithCaption.get('caption').asText()}
+  if author
+    .author-container
+      strong By 
+        a(href='/author/'+author.uid) #{author.name}
+      | !{author.bio}
   if tags && tags.length
     .tags-container
       | Tags:

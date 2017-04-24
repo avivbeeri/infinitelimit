@@ -106,8 +106,13 @@ article h2 {
 }
 
 article h4 {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   margin-top: 0;
+}
+
+article em.author {
+  margin-bottom: 5px;
+  display: inline-block;
 }
 
 
@@ -116,6 +121,11 @@ article p {
   line-height: 170%;
   margin: 0;
   margin-bottom: 20px;
+}
+
+article .published-date-label {
+  font-size: 12px; 
+  margin-bottom: 15px;
 }
 
 section h1 {
@@ -223,6 +233,20 @@ div.menuitem:not(:last-of-type) {
   margin-right: 10px;
   display: inline-block;
 
+}
+
+.author-container {
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
+  background-color: #7E2553;
+  color: #FFF1E8;
+  padding: 10px;
+}
+
+.author-container p {
+  margin: 0;
+  color: #FFF1E8;
 }
 
 footer {
