@@ -10,7 +10,9 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "~1.16.0",
+    "compression": "^1.6.2",
     "express": "^4.14.1",
+    "express-minify": "^0.2.0",
     "memory-cache": "^0.1.6",
     "prismic.io": "^3.3.1",
     "pug": "^2.0.0-beta10"

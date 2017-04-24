@@ -2,9 +2,13 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const Prismic = require('prismic.io');
 const mcache = require('memory-cache');
+const compression = require('compression');
+const minify = require('express-minify');
 
 const app = express();
 
+app.use(compression());
+app.use(minify());
 app.set('views', 'layouts');
 app.set('view engine', 'pug');
 app.use(bodyParser.json());
