@@ -11,18 +11,17 @@ html
     include includes/analytics.html 
   body
     header
-      h1 Infinite Limit
+      a(href='/')
+        h1 Infinite Limit
       h2 Looking between the pixels...
     nav
       ul
         li 
           a(href='/') Home
         li 
-          a(href='') Articles
-        li 
-          a(href='about') About
+          a(href='/about') About
         li
-          a(href='about') Contact
+          a(href='/contact') Contact
     main
       article
         block content

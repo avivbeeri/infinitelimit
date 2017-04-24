@@ -47,6 +47,10 @@ header h1, h2 {
   margin-bottom: 0;
 }
 
+header>a:hover {
+  color: #fef8f5;
+}
+
 nav {
   text-align: center;
   display: flex;
@@ -78,7 +82,7 @@ nav ul li a:visited {
 }
 
 nav ul li a:hover {
-  color: #7E2553;
+  color: #fef8f5;
   text-decoration: underline;
 }
 
