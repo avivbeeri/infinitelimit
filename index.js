@@ -169,7 +169,6 @@ app.get('/article/:uid', cache(cTime), (req, res, next) => {
           return;
         }
         const category = doc.getLink('article.category');
-        console.log(doc);
         const locals = {
           title: doc.getStructuredText('article.title').asText(),
           category: category ? category.getText('category.title') : null,

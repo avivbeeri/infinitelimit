@@ -159,7 +159,7 @@ div.full {
   margin-bottom: 10px;
 }
 
-div.full img {
+div.full img, .block-img img {
   height: auto;
   max-width: 100%;
   margin-left: auto;
