@@ -148,11 +148,14 @@ section h4 {
 }
 
 
-section p {
+article section p, 
+article section ul, 
+article section ol {
   color: #333333;
   line-height: 170%;
   margin: 0;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 div.full {
@@ -282,6 +285,8 @@ article pre {
   padding: 10px;
   overflow: auto;
   white-space: pre-wrap;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 @media screen and (max-width:600px) {  
