@@ -69,7 +69,7 @@ app.get('/', cache(cTime), (req, res, next) => {
   api().then((api) => {
     return api.query(
       Prismic.Predicates.at('document.type', 'article'),
-      { fetchLinks: ['category.title', 'category.uid', 'author.name'], orderings: '[my.article.date desc]' }
+      { fetchLinks: ['category.title', 'category.uid', 'author.name'], orderings: '[my.article.publish-date desc]' }
     );
   }).then((docs) => {
     res.render('index', { 
@@ -87,7 +87,7 @@ app.get('/tags/:tag', cache(cTime), (req, res, next) => {
       Prismic.Predicates.any('document.tags', [req.params.tag]) 
     ], { 
       fetchLinks: ['category.title', 'author.name'], 
-      orderings: '[my.article.date desc]' 
+      orderings: '[my.article.publish-date desc]' 
     });
   }).then((docs) => {
     res.render('index', { 
@@ -112,7 +112,7 @@ app.get('/categories/:uid', cache(cTime), (req, res, next) => {
           Prismic.Predicates.at('my.article.category', category.id) 
         ], { 
           fetchLinks: ['category.title', 'author.name'], 
-          orderings: '[my.article.date desc]' 
+          orderings: '[my.article.publish-date desc]' 
         });
       });
   }).then((docs) => {
@@ -137,7 +137,7 @@ app.get('/author/:uid', cache(cTime), (req, res, next) => {
           Prismic.Predicates.at('my.article.author', author.id) 
         ], { 
           fetchLinks: ['category.title', 'author.name'], 
-          orderings: '[my.article.date desc]' 
+          orderings: '[my.article.publish-date desc]' 
         });
       });
   }).then((docs) => {
