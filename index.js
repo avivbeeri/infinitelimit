@@ -169,10 +169,11 @@ app.get('/article/:uid', cache(cTime), (req, res, next) => {
           return;
         }
         const category = doc.getLink('article.category');
+        console.log(doc);
         const locals = {
           title: doc.getStructuredText('article.title').asText(),
           category: category ? category.getText('category.title') : null,
-          publishDate: formatDate(doc.firstPublicationDate),
+          publishDate: formatDate(doc.firstPublicationDate || doc.getDate('article.publish-date') || new Date()),
           categorySlug: category ? category.uid : null,
           description: doc.getStructuredText('article.description').asText(),
           image: doc.getImage('article.thumbnail') ? doc.getImage('article.thumbnail').url : null,
