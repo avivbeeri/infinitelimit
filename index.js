@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser');
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const Prismic = require('prismic.io');
 const mcache = require('memory-cache');
 const compression = require('compression');
@@ -12,6 +13,7 @@ app.use(minify());
 app.set('views', 'layouts');
 app.set('view engine', 'pug');
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use('/static', express.static('static'));
 
 const cTime = 60 * 60 * 24;
@@ -57,16 +59,17 @@ var cache = (duration) => {
   }
 }
 
-function api() {
+function api(req) {
   return Prismic.api('https://infinitelimit.prismic.io/api', {
-    apiDataTTL: 60
+    apiDataTTL: 60,
+    req
   });
 }
 
 app.get('/', cache(cTime), (req, res, next) => {
   // Retrieve the home page, render and serve
 //  res.status(200).send('Welcome to infinitelimit.net');
-  api().then((api) => {
+  api(req).then((api) => {
     return api.query(
       Prismic.Predicates.at('document.type', 'article'),
       { fetchLinks: ['category.title', 'category.uid', 'author.name'], orderings: '[my.article.publish-date desc]' }
@@ -81,7 +84,7 @@ app.get('/', cache(cTime), (req, res, next) => {
 app.get('/tags/:tag', cache(cTime), (req, res, next) => {
   // Retrieve the home page, render and serve
 //  res.status(200).send('Welcome to infinitelimit.net');
-  api().then((api) => {
+  api(req).then((api) => {
     return api.query([
       Prismic.Predicates.at('document.type', 'article'),
       Prismic.Predicates.any('document.tags', [req.params.tag]) 
@@ -99,7 +102,7 @@ app.get('/tags/:tag', cache(cTime), (req, res, next) => {
 app.get('/categories/:uid', cache(cTime), (req, res, next) => {
   // Retrieve the home page, render and serve
 //  res.status(200).send('Welcome to infinitelimit.net');
-  api().then((api) => {
+  api(req).then((api) => {
     return api.getByUID('category', req.params.uid)
       .then((category) => {
         if (!category) {
@@ -124,7 +127,7 @@ app.get('/categories/:uid', cache(cTime), (req, res, next) => {
 app.get('/author/:uid', cache(cTime), (req, res, next) => {
   // Retrieve the home page, render and serve
 //  res.status(200).send('Welcome to infinitelimit.net');
-  api().then((api) => {
+  api(req).then((api) => {
     return api.getByUID('author', req.params.uid)
       .then((author) => {
         if (!author) {
@@ -157,8 +160,19 @@ app.post('/webhook', (req, res) => {
   res.status(200).send();
 });
 
+app.get('/preview', (req, res) => {
+  const token = req.query.token;
+  api(req).then((api) => {
+    return api.previewSession(token, resolve, 'http://www.infinitelimit.net');
+  }).then((redirectUrl) => {
+    res.cookie(Prismic.previewCookie, token, { maxAge: 60 * 30 * 1000, path: '/', httpOnly: false });
+    res.redirect(redirectUrl);
+  })
+  .catch(console.error);
+});
+
 app.get('/article/:uid', cache(cTime), (req, res, next) => {
-  api().then((api) => {
+  api(req).then((api) => {
     return api.getByUID('article', req.params.uid, { 
       fetchLinks: ['category.title']
     })
@@ -196,7 +210,7 @@ app.get('/article/:uid', cache(cTime), (req, res, next) => {
 });
 
 app.get('/:uid', cache(cTime), (req, res, next) => {
-  api().then((api) => {
+  api(req).then((api) => {
     return api.getByUID('page', req.params.uid)
   })
   .then((doc) => {
