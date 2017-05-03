@@ -43,6 +43,10 @@ function resolve(doc) {
 
 var cache = (duration) => {
   return (req, res, next) => {
+    if (req.cookies[Prismic.previewCookie]) {
+      next();
+      return;
+    }
     let key = '__express__' + req.originalUrl || req.url
     let cachedBody = mcache.get(key)
     if (cachedBody) {
