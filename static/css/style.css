@@ -284,7 +284,6 @@ article pre {
   font-family: "Courier 10 Pitch", Courier, monospace;
   padding: 10px;
   overflow: auto;
-  white-space: pre-wrap;
   margin-top: 0;
   margin-bottom: 0;
 }
