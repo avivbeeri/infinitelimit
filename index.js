@@ -97,6 +97,10 @@ app.get('/tags/:tag', cache(cTime), (req, res, next) => {
       orderings: '[my.article.publish-date desc]' 
     });
   }).then((docs) => {
+    if (!docs.results.length) {
+      handleError(req, res);
+      return; 
+    }
     res.render('index', { 
       docs: docs 
     });
@@ -111,7 +115,7 @@ app.get('/categories/:uid', cache(cTime), (req, res, next) => {
       .then((category) => {
         if (!category) {
         // It doesn't exist. We need a 404.
-          res.status(404).send();
+          handleError(req, res);
           return;
         }
         return api.query([
@@ -136,7 +140,7 @@ app.get('/author/:uid', cache(cTime), (req, res, next) => {
       .then((author) => {
         if (!author) {
         // It doesn't exist. We need a 404.
-          res.status(404).send();
+          handleError(req, res);
           return;
         }
         return api.query([
@@ -181,11 +185,11 @@ app.get('/article/:uid', cache(cTime), (req, res, next) => {
       fetchLinks: ['category.title']
     })
     .then((doc) => {
+      if (!doc) {
+        handleError(req, res);
+        return;
+      }
       return api.getByID(doc.getLink('article.author').id).then((author) => {
-        if (!doc) {
-          res.status(404).send();
-          return;
-        }
         const category = doc.getLink('article.category');
         const locals = {
           title: doc.getStructuredText('article.title').asText(),
@@ -219,7 +223,7 @@ app.get('/:uid', cache(cTime), (req, res, next) => {
   })
   .then((doc) => {
     if (!doc) {
-      res.status(404).send();
+      handleError(req, res);
       return;
     }
     const locals = {
@@ -239,3 +243,13 @@ app.get('/:uid', cache(cTime), (req, res, next) => {
 app.listen(process.env.PORT || 3000, () => {
   console.log('InfiniteLimit server listening...')
 });
+
+function handleError(req, res) {
+  const locals = {
+    title: 'Sorry, no page not found',
+    description: null,
+    image: null,
+    body: []
+  };
+  res.status(404).render('article', locals);
+}
